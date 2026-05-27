@@ -35,6 +35,7 @@ export {
   getSkillSources,
   getSkillScope,
   discoverSkills,
+  mergeDiscoveredSkills,
   createSkill,
   updateSkill,
   deleteSkill,
@@ -66,10 +67,29 @@ export {
 } from './mcp.js';
 
 export {
-  listPromptTemplates,
-  getPromptTemplate,
-  createPromptTemplate,
-  updatePromptTemplate,
-  deletePromptTemplate,
-  slugify as slugifyPromptTemplate,
-} from './prompt-templates.js';
+  listPluginEntries,
+  getPluginEntry,
+  createPluginEntry,
+  updatePluginEntry,
+  deletePluginEntry,
+  listPluginDirFiles,
+  readPluginDirFile,
+  writePluginDirFile,
+  deletePluginDirFile,
+  encodePluginId,
+  decodePluginId,
+  parsePluginRaw,
+  serializePluginEntry,
+} from './plugins.js';
+
+export {
+  listSnippets,
+  getSnippet,
+  createSnippet,
+  updateSnippet,
+  deleteSnippet,
+  expandSnippets,
+} from './snippets.js';
+
+export { getNpmInfo, lookupNpmPackage, clearCache as clearNpmCache } from './npm-registry.js';
+export { parseNpmSpec, parsePathSpec, isExactSemver } from './plugin-spec.js';

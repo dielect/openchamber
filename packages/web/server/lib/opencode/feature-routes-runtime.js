@@ -9,6 +9,9 @@ import { registerSettingsUtilityRoutes } from './core-routes.js';
 import { registerProjectIconRoutes } from './project-icon-routes.js';
 import { registerScheduledTaskRoutes } from '../scheduled-tasks/routes.js';
 import { registerSkillRoutes } from './skill-routes.js';
+import { registerPluginRoutes } from './plugin-routes.js';
+import { getNpmInfo, clearCache as clearNpmCache } from './npm-registry.js';
+import { parseNpmSpec, parsePathSpec, isExactSemver } from './plugin-spec.js';
 import { registerOpenCodeRoutes } from './routes.js';
 
 export const createFeatureRoutesRuntime = (dependencies) => {
@@ -123,11 +126,23 @@ export const createFeatureRoutesRuntime = (dependencies) => {
       createMcpConfig,
       updateMcpConfig,
       deleteMcpConfig,
-      listPromptTemplates,
-      getPromptTemplate,
-      createPromptTemplate,
-      updatePromptTemplate,
-      deletePromptTemplate,
+      listSnippets,
+      getSnippet,
+      createSnippet,
+      updateSnippet,
+      deleteSnippet,
+      expandSnippets,
+      listPluginEntries,
+      getPluginEntry,
+      createPluginEntry,
+      updatePluginEntry,
+      deletePluginEntry,
+      listPluginDirFiles,
+      readPluginDirFile,
+      writePluginDirFile,
+      deletePluginDirFile,
+      encodePluginId,
+      decodePluginId,
     } = await import('./index.js');
 
     registerConfigEntityRoutes(app, {
@@ -149,16 +164,39 @@ export const createFeatureRoutesRuntime = (dependencies) => {
       createMcpConfig,
       updateMcpConfig,
       deleteMcpConfig,
-      listPromptTemplates,
-      getPromptTemplate,
-      createPromptTemplate,
-      updatePromptTemplate,
-      deletePromptTemplate,
+      listSnippets,
+      getSnippet,
+      createSnippet,
+      updateSnippet,
+      deleteSnippet,
+      expandSnippets,
+    });
+
+    registerPluginRoutes(app, {
+      resolveOptionalProjectDirectory,
+      refreshOpenCodeAfterConfigChange,
+      clientReloadDelayMs,
+      listPluginEntries,
+      getPluginEntry,
+      createPluginEntry,
+      updatePluginEntry,
+      deletePluginEntry,
+      listPluginDirFiles,
+      readPluginDirFile,
+      writePluginDirFile,
+      deletePluginDirFile,
+      encodePluginId,
+      decodePluginId,
+      getNpmInfo,
+      parseNpmSpec,
+      parsePathSpec,
+      isExactSemver,
     });
 
     const {
       getSkillSources,
       discoverSkills,
+      mergeDiscoveredSkills,
       createSkill,
       updateSkill,
       deleteSkill,
@@ -199,6 +237,7 @@ export const createFeatureRoutesRuntime = (dependencies) => {
       getOpenCodePort,
       getSkillSources,
       discoverSkills,
+      mergeDiscoveredSkills,
       createSkill,
       updateSkill,
       deleteSkill,
